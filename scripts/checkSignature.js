@@ -58,6 +58,12 @@ async function main() {
     console.log("Signature:", signature);
     console.log("Recovered signer address:", recovered);
     console.log("Key to check in Identity contract:", recoveredKey);
+
+    const issuerAddress = "0x521cfd57c76c1950fc2ee526b77dff86f88c423e"
+    const claimId = ethers.utils.keccak256(
+        ethers.utils.defaultAbiCoder.encode(["address", "uint256"], [issuerAddress, claimTopic])
+    );
+    console.log("🧾 Claim ID:", claimId);
 }
 
 main().catch(console.error);
