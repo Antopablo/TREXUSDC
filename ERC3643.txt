@@ -1,0 +1,103 @@
+ERC343 - INIT
+
+******** CONTRAT CLAIM TOPIC REGISTRY *****
+
+- Déployer + initialiser
+- AddClaimTopic: 1 (KYC)
+
+******** CONTRAT TRUSTED ISSUER REGISTRY *****
+
+- Déployer + init
+- AddTrustedIssuer : l'address du contrat Identity du 0x...9834 + claim topic [1]
+
+******** CONTRAT IDENTITY REGYSTRY STORAGE *****
+
+pré-requis: avoir déployé un contrat identity Registry
+
+- Déployer + init
+- bindIdentityToStorage
+	- addresse du contrat identity registry (qui n'est pas encore init)
+
+- addAgent: l'addresse du wallet 0x...9834
+-> possible d'init identity registry
+
+
+******** CONTRAT IDENTITY ************
+- Dans remix:
+	- connecté avec le compte 'admin' 0x...9834
+	- compiler /node_modules/@onchain-id/solidity/contracts/Identity.sol
+	- déployer avec paramètre: 
+		- l'address du wallet 0x...9834 (wallet POC)
+		- isLbrary : false
+
+récupérer l'addresse déployée
+Ajouter le contrat Identity déployé dans remix avec "At address"
+Utiliser le script du microservice smartCo: node /scripts/hashKey.js
+Récupérer la clé hashé et la mettre dans le contrat Identity pour faire "GetKey" 
+	- Doit retourner 1 key de type 1 (Manager)
+
+Ajouter des clés avec ADDKEY() sur le contrat
+- _key: l'addresse hashé (0xbbe83d1be7a8365065b2634182b69a4343cfd42701792bb930646f2476ddd1f0) pour admin
+- _purpose: 1 (MANAGER)
+- _type: 1 (ECDSA)
+
+Ajouter _purpose 2 et _purpose 3 (CLAIM)
+
+
+
+// Création du contrat Identity pour 800A
+- connecté avec 800A 0x...800A
+- suivre le tuto
+
+
+En tant que 800A, dans mon contrat, il faut ajouter une clé de type 3 (CLAIM_SIGNER) à l'admin
+-> addKey()
+	- hash du wallet 9834
+	- 3
+	- 1
+
+
+=> identity OK, il faut ajouter dans Identity Registry
+
+******** CLAIM ISSUER ************
+
+Implémentation -rapide- de isClaimValid
+Il faudrait le mettre dans le contrat Identity directement mais cela force à tout refaire.
+Déployer le contrat evc le contrat Identity du issuer admin (0x...9834)
+La fonction se fera appeler au moment du addClaim()
+
+******** CONTRAT IDENTITY REGISTRY ************
+
+Pré-requis: avec un contrat identity
+
+- Connecté en tant que 'admin' 0x...9834
+- isAgent -> param : 0x148D36a5Ef6C3cC5173bA150812F0eF0Df489834 doit être true
+
+- Déploy uniquement :warning:
+- Une fois déployé, et avant init, mettre l'addresse du contrat dans le contrat registry storage pour init registry storage
+- init()
+	- address trustedIssuer
+	- address claimTopic
+	- address IdentityStorage (qui est maintenant initiatlisé)
+- addAgent() 
+	- le contrat wallet admin 0x...9834
+
+-> Ajouter dans Identity Registry()
+	- Register Identity
+		- _userAddress: wallet 0x...9834 et 0x...800A
+		- _identity: l'adresse du contrat identity
+		- _country; 250 pour France, 442 pour Lu, 840 pour USA  https://www.iban.com/country-codes
+
+
+
+
+-> Dans le contrat de 800A, je suis en tant que admin
+-> addClaim()
+	- 1
+	- 1
+	- contrat Identity admin 0x...9834 
+	- utiliser le script pour générer la signature
+	- <mettre le meme message que dans le script de signature>
+	- ""
+
+
