@@ -1,6 +1,6 @@
 {
-  "name": "Identity",
-  "address": "0xf183be1a63298f782cfe38a501f0f119e565849c",
+  "name": "ClaimIssuer",
+  "address": "0x7ce6a8ebbe1fe221683428346307907360a0b1d6",
   "abi": [
     {
       "inputs": [
@@ -105,11 +105,6 @@
           "internalType": "address",
           "name": "initialManagementKey",
           "type": "address"
-        },
-        {
-          "internalType": "bool",
-          "name": "_isLibrary",
-          "type": "bool"
         }
       ],
       "stateMutability": "nonpayable",
@@ -279,6 +274,19 @@
         }
       ],
       "name": "ClaimRemoved",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes",
+          "name": "signature",
+          "type": "bytes"
+        }
+      ],
+      "name": "ClaimRevoked",
       "type": "event"
     },
     {
@@ -515,6 +523,43 @@
           "internalType": "bytes32",
           "name": "_claimId",
           "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "_identity",
+          "type": "address"
+        }
+      ],
+      "name": "revokeClaim",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "signature",
+          "type": "bytes"
+        }
+      ],
+      "name": "revokeClaimBySignature",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "_claimId",
+          "type": "bytes32"
         }
       ],
       "name": "getClaim",
@@ -642,6 +687,83 @@
     {
       "inputs": [
         {
+          "internalType": "bytes",
+          "name": "sig",
+          "type": "bytes"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "dataHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getRecoveredAddress",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "addr",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "_sig",
+          "type": "bytes"
+        }
+      ],
+      "name": "isClaimRevoked",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "contract IIdentity",
+          "name": "_identity",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "claimTopic",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "sig",
+          "type": "bytes"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "isClaimValid",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "claimValid",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
           "internalType": "bytes32",
           "name": "_key",
           "type": "bytes32"
@@ -664,6 +786,25 @@
       "type": "function"
     },
     {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "name": "revokedClaims",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [],
       "name": "version",
       "outputs": [
@@ -677,6 +818,6 @@
       "type": "function"
     }
   ],
-  "filePath": " - connect to localhost - /node_modules/@onchain-id/solidity/contracts/Identity.sol",
-  "pinnedAt": 1748775410815
+  "filePath": " - connect to localhost - /node_modules/@onchain-id/solidity/contracts/ClaimIssuer.sol",
+  "pinnedAt": 1749121804160
 }

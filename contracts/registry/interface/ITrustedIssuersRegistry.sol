@@ -61,9 +61,9 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-pragma solidity 0.8.20;
+pragma solidity 0.8.17;
 
-import "@onchain-id/solidity/contracts/interface/IClaimIssuer.sol";
+import '@onchain-id/solidity/contracts/interface/IClaimIssuer.sol';
 
 interface ITrustedIssuersRegistry {
     /**

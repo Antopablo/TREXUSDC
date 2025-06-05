@@ -1,6 +1,6 @@
 {
   "name": "ClaimTopicsRegistry",
-  "address": "0xaCdC4c21FaF4106Ab2375c548C155004c0F49686",
+  "address": "0x98a77ba4fda1556da1b14d8de1048f64066ed654",
   "abi": [
     {
       "inputs": [
@@ -141,5 +141,5 @@
     }
   ],
   "filePath": " - connect to localhost - /contracts/registry/implementation/ClaimTopicsRegistry.sol",
-  "pinnedAt": 1748610320310
+  "pinnedAt": 1749118996714
 }

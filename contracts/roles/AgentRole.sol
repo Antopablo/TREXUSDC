@@ -61,11 +61,11 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-pragma solidity 0.8.20;
+pragma solidity 0.8.17;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
+import '@openzeppelin/contracts/access/Ownable.sol';
 
-import "./Roles.sol";
+import './Roles.sol';
 
 contract AgentRole is Ownable {
     using Roles for Roles.Role;
@@ -76,18 +76,18 @@ contract AgentRole is Ownable {
     event AgentRemoved(address indexed _agent);
 
     modifier onlyAgent() {
-        require(isAgent(msg.sender), "AgentRole: caller does not have the Agent role");
+        require(isAgent(msg.sender), 'AgentRole: caller does not have the Agent role');
         _;
     }
 
     function addAgent(address _agent) public onlyOwner {
-        require(_agent != address(0), "invalid argument - zero address");
+        require(_agent != address(0), 'invalid argument - zero address');
         _agents.add(_agent);
         emit AgentAdded(_agent);
     }
 
     function removeAgent(address _agent) public onlyOwner {
-        require(_agent != address(0), "invalid argument - zero address");
+        require(_agent != address(0), 'invalid argument - zero address');
         _agents.remove(_agent);
         emit AgentRemoved(_agent);
     }

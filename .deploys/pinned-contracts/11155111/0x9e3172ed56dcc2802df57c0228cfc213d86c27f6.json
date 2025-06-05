@@ -1,6 +1,6 @@
 {
   "name": "IdentityRegistry",
-  "address": "0xe6be2753bdbe38aec9cda338a60a2578506815f0",
+  "address": "0x9e3172ed56dcc2802df57c0228cfc213d86c27f6",
   "abi": [
     {
       "inputs": [
@@ -527,5 +527,5 @@
     }
   ],
   "filePath": " - connect to localhost - /contracts/registry/implementation/IdentityRegistry.sol",
-  "pinnedAt": 1748778016553
+  "pinnedAt": 1749119165202
 }

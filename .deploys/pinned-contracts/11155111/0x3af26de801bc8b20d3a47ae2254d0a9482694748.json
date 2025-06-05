@@ -1,6 +1,6 @@
 {
   "name": "Identity",
-  "address": "0x521cFD57c76C1950fc2Ee526B77dff86F88C423e",
+  "address": "0x3af26de801bc8b20d3a47ae2254d0a9482694748",
   "abi": [
     {
       "inputs": [
@@ -642,6 +642,64 @@
     {
       "inputs": [
         {
+          "internalType": "bytes",
+          "name": "sig",
+          "type": "bytes"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "dataHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getRecoveredAddress",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "addr",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "contract IIdentity",
+          "name": "_identity",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "claimTopic",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "sig",
+          "type": "bytes"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "isClaimValid",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "claimValid",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
           "internalType": "bytes32",
           "name": "_key",
           "type": "bytes32"
@@ -678,5 +736,5 @@
     }
   ],
   "filePath": " - connect to localhost - /node_modules/@onchain-id/solidity/contracts/Identity.sol",
-  "pinnedAt": 1748782930769
+  "pinnedAt": 1749120567976
 }

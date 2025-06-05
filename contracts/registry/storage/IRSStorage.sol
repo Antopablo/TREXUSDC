@@ -61,9 +61,9 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-pragma solidity 0.8.20;
+pragma solidity 0.8.17;
 
-import "@onchain-id/solidity/contracts/interface/IIdentity.sol";
+import '@onchain-id/solidity/contracts/interface/IIdentity.sol';
 
 contract IRSStorage {
     /// @dev struct containing the identity contract and the country of the user

@@ -61,16 +61,14 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-pragma solidity 0.8.20;
+pragma solidity 0.8.17;
 
-import "@onchain-id/solidity/contracts/interface/IClaimIssuer.sol";
-import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
-import "../interface/ITrustedIssuersRegistry.sol";
-import "../storage/TIRStorage.sol";
-
+import '@onchain-id/solidity/contracts/interface/IClaimIssuer.sol';
+import '@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol';
+import '../interface/ITrustedIssuersRegistry.sol';
+import '../storage/TIRStorage.sol';
 
 contract TrustedIssuersRegistry is ITrustedIssuersRegistry, OwnableUpgradeable, TIRStorage {
-
     function init() external initializer {
         __Ownable_init();
     }
@@ -79,11 +77,11 @@ contract TrustedIssuersRegistry is ITrustedIssuersRegistry, OwnableUpgradeable, 
      *  @dev See {ITrustedIssuersRegistry-addTrustedIssuer}.
      */
     function addTrustedIssuer(IClaimIssuer _trustedIssuer, uint256[] calldata _claimTopics) external override onlyOwner {
-        require(address(_trustedIssuer) != address(0), "invalid argument - zero address");
-        require(_trustedIssuerClaimTopics[address(_trustedIssuer)].length == 0, "trusted Issuer already exists");
-        require(_claimTopics.length > 0, "trusted claim topics cannot be empty");
-        require(_claimTopics.length <= 15, "cannot have more than 15 claim topics");
-        require(_trustedIssuers.length < 50, "cannot have more than 50 trusted issuers");
+        require(address(_trustedIssuer) != address(0), 'invalid argument - zero address');
+        require(_trustedIssuerClaimTopics[address(_trustedIssuer)].length == 0, 'trusted Issuer already exists');
+        require(_claimTopics.length > 0, 'trusted claim topics cannot be empty');
+        require(_claimTopics.length <= 15, 'cannot have more than 15 claim topics');
+        require(_trustedIssuers.length < 50, 'cannot have more than 50 trusted issuers');
         _trustedIssuers.push(_trustedIssuer);
         _trustedIssuerClaimTopics[address(_trustedIssuer)] = _claimTopics;
         for (uint256 i = 0; i < _claimTopics.length; i++) {
@@ -96,8 +94,8 @@ contract TrustedIssuersRegistry is ITrustedIssuersRegistry, OwnableUpgradeable, 
      *  @dev See {ITrustedIssuersRegistry-removeTrustedIssuer}.
      */
     function removeTrustedIssuer(IClaimIssuer _trustedIssuer) external override onlyOwner {
-        require(address(_trustedIssuer) != address(0), "invalid argument - zero address");
-        require(_trustedIssuerClaimTopics[address(_trustedIssuer)].length != 0, "NOT a trusted issuer");
+        require(address(_trustedIssuer) != address(0), 'invalid argument - zero address');
+        require(_trustedIssuerClaimTopics[address(_trustedIssuer)].length != 0, 'NOT a trusted issuer');
         uint256 length = _trustedIssuers.length;
         for (uint256 i = 0; i < length; i++) {
             if (_trustedIssuers[i] == _trustedIssuer) {
@@ -106,16 +104,12 @@ contract TrustedIssuersRegistry is ITrustedIssuersRegistry, OwnableUpgradeable, 
                 break;
             }
         }
-        for (
-            uint256 claimTopicIndex = 0;
-            claimTopicIndex < _trustedIssuerClaimTopics[address(_trustedIssuer)].length;
-            claimTopicIndex++) {
+        for (uint256 claimTopicIndex = 0; claimTopicIndex < _trustedIssuerClaimTopics[address(_trustedIssuer)].length; claimTopicIndex++) {
             uint256 claimTopic = _trustedIssuerClaimTopics[address(_trustedIssuer)][claimTopicIndex];
             uint256 topicsLength = _claimTopicsToTrustedIssuers[claimTopic].length;
             for (uint256 i = 0; i < topicsLength; i++) {
                 if (_claimTopicsToTrustedIssuers[claimTopic][i] == _trustedIssuer) {
-                    _claimTopicsToTrustedIssuers[claimTopic][i] =
-                    _claimTopicsToTrustedIssuers[claimTopic][topicsLength - 1];
+                    _claimTopicsToTrustedIssuers[claimTopic][i] = _claimTopicsToTrustedIssuers[claimTopic][topicsLength - 1];
                     _claimTopicsToTrustedIssuers[claimTopic].pop();
                     break;
                 }
@@ -129,18 +123,17 @@ contract TrustedIssuersRegistry is ITrustedIssuersRegistry, OwnableUpgradeable, 
      *  @dev See {ITrustedIssuersRegistry-updateIssuerClaimTopics}.
      */
     function updateIssuerClaimTopics(IClaimIssuer _trustedIssuer, uint256[] calldata _claimTopics) external override onlyOwner {
-        require(address(_trustedIssuer) != address(0), "invalid argument - zero address");
-        require(_trustedIssuerClaimTopics[address(_trustedIssuer)].length != 0, "NOT a trusted issuer");
-        require(_claimTopics.length <= 15, "cannot have more than 15 claim topics");
-        require(_claimTopics.length > 0, "claim topics cannot be empty");
+        require(address(_trustedIssuer) != address(0), 'invalid argument - zero address');
+        require(_trustedIssuerClaimTopics[address(_trustedIssuer)].length != 0, 'NOT a trusted issuer');
+        require(_claimTopics.length <= 15, 'cannot have more than 15 claim topics');
+        require(_claimTopics.length > 0, 'claim topics cannot be empty');
 
         for (uint256 i = 0; i < _trustedIssuerClaimTopics[address(_trustedIssuer)].length; i++) {
             uint256 claimTopic = _trustedIssuerClaimTopics[address(_trustedIssuer)][i];
             uint256 topicsLength = _claimTopicsToTrustedIssuers[claimTopic].length;
             for (uint256 j = 0; j < topicsLength; j++) {
                 if (_claimTopicsToTrustedIssuers[claimTopic][j] == _trustedIssuer) {
-                    _claimTopicsToTrustedIssuers[claimTopic][j] =
-                    _claimTopicsToTrustedIssuers[claimTopic][topicsLength - 1];
+                    _claimTopicsToTrustedIssuers[claimTopic][j] = _claimTopicsToTrustedIssuers[claimTopic][topicsLength - 1];
                     _claimTopicsToTrustedIssuers[claimTopic].pop();
                     break;
                 }
@@ -171,7 +164,7 @@ contract TrustedIssuersRegistry is ITrustedIssuersRegistry, OwnableUpgradeable, 
      *  @dev See {ITrustedIssuersRegistry-isTrustedIssuer}.
      */
     function isTrustedIssuer(address _issuer) external view override returns (bool) {
-        if(_trustedIssuerClaimTopics[_issuer].length > 0) {
+        if (_trustedIssuerClaimTopics[_issuer].length > 0) {
             return true;
         }
         return false;
@@ -181,7 +174,7 @@ contract TrustedIssuersRegistry is ITrustedIssuersRegistry, OwnableUpgradeable, 
      *  @dev See {ITrustedIssuersRegistry-getTrustedIssuerClaimTopics}.
      */
     function getTrustedIssuerClaimTopics(IClaimIssuer _trustedIssuer) external view override returns (uint256[] memory) {
-        require(_trustedIssuerClaimTopics[address(_trustedIssuer)].length != 0, "trusted Issuer doesn\'t exist");
+        require(_trustedIssuerClaimTopics[address(_trustedIssuer)].length != 0, "trusted Issuer doesn't exist");
         return _trustedIssuerClaimTopics[address(_trustedIssuer)];
     }
 

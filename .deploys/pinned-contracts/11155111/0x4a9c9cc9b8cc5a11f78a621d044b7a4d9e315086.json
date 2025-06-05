@@ -1,6 +1,6 @@
 {
   "name": "TrustedIssuersRegistry",
-  "address": "0xacAf2C728b200aDb66c5964b03aD55F1AE58fBd2",
+  "address": "0x4a9c9cc9b8cc5a11f78a621d044b7a4d9e315086",
   "abi": [
     {
       "inputs": [
@@ -270,5 +270,5 @@
     }
   ],
   "filePath": " - connect to localhost - /contracts/registry/implementation/TrustedIssuersRegistry.sol",
-  "pinnedAt": 1748608805445
+  "pinnedAt": 1749119104697
 }

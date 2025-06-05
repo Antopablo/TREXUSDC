@@ -1,6 +1,6 @@
 {
   "name": "Token",
-  "address": "0x75499aaf4F6F2C668a6B247E30B77b276892Db25",
+  "address": "0x3f2976112f9d6a7442582331d71d6f9694a86254",
   "abi": [
     {
       "inputs": [
@@ -1086,5 +1086,5 @@
     }
   ],
   "filePath": " - connect to localhost - /contracts/token/Token.sol",
-  "pinnedAt": 1748598855628
+  "pinnedAt": 1749119565912
 }
